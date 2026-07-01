@@ -28,10 +28,9 @@ func New(repo *repository.Repository) *Handler {
 // @Tags subscriptions
 // @Accept json
 // @Produce json
-// @Param subscription body model.Subscription true "Subscription"
-// @Success 201 {object} model.Subscription
+// @Param subscription body model.SubscriptionRequest true "Subscription"
+// @Success 201 {object} model.SubscriptionResponse
 // @Router /subscriptions [post]
-
 func (h *Handler) CreateSubscription(w http.ResponseWriter, r *http.Request) {
 	var request model.SubscriptionRequest
 
@@ -82,9 +81,8 @@ func (h *Handler) CreateSubscription(w http.ResponseWriter, r *http.Request) {
 // @Summary Получить все подписки
 // @Tags subscriptions
 // @Produce json
-// @Success 200 {array} model.Subscription
+// @Success 200 {array} model.SubscriptionResponse
 // @Router /subscriptions [get]
-
 func (h *Handler) GetSubscriptions(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("GetSubscriptions called")
 
@@ -109,9 +107,8 @@ func (h *Handler) GetSubscriptions(w http.ResponseWriter, r *http.Request) {
 // @Tags subscriptions
 // @Produce json
 // @Param id path string true "Subscription ID"
-// @Success 200 {object} model.Subscription
+// @Success 200 {object} model.SubscriptionResponse
 // @Router /subscriptions/{id} [get]
-
 func (h *Handler) GetSubscriptionByID(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
@@ -131,7 +128,6 @@ func (h *Handler) GetSubscriptionByID(w http.ResponseWriter, r *http.Request) {
 // @Param id path string true "Subscription ID"
 // @Success 204
 // @Router /subscriptions/{id} [delete]
-
 func (h *Handler) DeleteSubscription(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
@@ -150,10 +146,9 @@ func (h *Handler) DeleteSubscription(w http.ResponseWriter, r *http.Request) {
 // @Accept json
 // @Produce json
 // @Param id path string true "Subscription ID"
-// @Param subscription body model.Subscription true "Subscription"
-// @Success 200 {object} model.Subscription
+// @Param subscription body model.SubscriptionRequest true "Subscription"
+// @Success 200 {object} model.SubscriptionResponse
 // @Router /subscriptions/{id} [put]
-
 func (h *Handler) UpdateSubscription(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
@@ -211,7 +206,6 @@ func (h *Handler) UpdateSubscription(w http.ResponseWriter, r *http.Request) {
 // @Param to query string false "YYYY-MM"
 // @Success 200 {object} map[string]int
 // @Router /subscriptions/cost [get]
-
 func (h *Handler) CalculateCost(w http.ResponseWriter, r *http.Request) {
 	userID := r.URL.Query().Get("user_id")
 	serviceName := r.URL.Query().Get("service_name")

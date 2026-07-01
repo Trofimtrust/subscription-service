@@ -10,8 +10,6 @@ import (
 )
 
 func ConnectDB() (*pgx.Conn, error) {
-	// Если .env есть — загружаем его.
-	// Если нет (например, в Docker), просто используем переменные окружения.
 	_ = godotenv.Load()
 
 	connString := fmt.Sprintf(
