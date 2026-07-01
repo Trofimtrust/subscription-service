@@ -1,6 +1,6 @@
 module subscription-service
 
-go 1.26.4
+go 1.25.0
 
 require (
 	github.com/go-chi/chi/v5 v5.3.0
@@ -23,7 +23,6 @@ require (
 	github.com/mailru/easyjson v0.7.6 // indirect
 	github.com/rogpeppe/go-internal v1.15.0 // indirect
 	github.com/swaggo/files v1.0.1 // indirect
-	golang.org/x/exp v0.0.0-20260611194520-c48552f49976 // indirect
 	golang.org/x/mod v0.37.0 // indirect
 	golang.org/x/net v0.56.0 // indirect
 	golang.org/x/sync v0.21.0 // indirect

@@ -1,11 +1,7 @@
-version: "3.9"
-
 services:
   postgres:
     image: postgres:17
-
     container_name: subscription-db
-
     restart: always
 
     environment:
@@ -18,6 +14,23 @@ services:
 
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: subscription-app
+
+    depends_on:
+      - postgres
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: subscriptions
+      DB_USER: postgres
+      DB_PASSWORD: postgres
 
 volumes:
   postgres_data:

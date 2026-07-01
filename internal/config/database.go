@@ -10,10 +10,9 @@ import (
 )
 
 func ConnectDB() (*pgx.Conn, error) {
-	err := godotenv.Load()
-	if err != nil {
-		return nil, err
-	}
+	// Если .env есть — загружаем его.
+	// Если нет (например, в Docker), просто используем переменные окружения.
+	_ = godotenv.Load()
 
 	connString := fmt.Sprintf(
 		"postgres://%s:%s@%s:%s/%s",
