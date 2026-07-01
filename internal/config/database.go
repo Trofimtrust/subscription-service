@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
@@ -21,12 +22,19 @@ func ConnectDB() (*pgx.Conn, error) {
 		os.Getenv("DB_NAME"),
 	)
 
-	conn, err := pgx.Connect(context.Background(), connString)
-	if err != nil {
-		return nil, err
+	var conn *pgx.Conn
+	var err error
+
+	for i := 0; i < 10; i++ {
+		conn, err = pgx.Connect(context.Background(), connString)
+		if err == nil {
+			fmt.Println("Connected to PostgreSQL")
+			return conn, nil
+		}
+
+		fmt.Printf("Waiting for PostgreSQL... (%d/10)\n", i+1)
+		time.Sleep(2 * time.Second)
 	}
 
-	fmt.Println("Connected to PostgreSQL")
-
-	return conn, nil
+	return nil, err
 }
